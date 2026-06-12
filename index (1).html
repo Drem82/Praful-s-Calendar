@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+<title>Praful's desk</title>
+<meta name="description" content="Good Growth Foundation shared queue for the Director." />
+<link rel="manifest" href="manifest.webmanifest" />
+<meta name="theme-color" content="#112743" />
+<link rel="apple-touch-icon" href="icon-180.png" />
+<meta name="apple-mobile-web-app-capable" content="yes" />
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+<meta name="apple-mobile-web-app-title" content="Praful's desk" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+<style>
+  :root {
+    --navy: #112743;
+    --cream: #F4F1EA;
+    --amber: #E2A33C;
+    --ink: #112743;
+    --muted: #5d6b7d;
+    --line: #e7e2d6;
+    --card: #ffffff;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: "Manrope", system-ui, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.45;
+  }
+  .wrap { max-width: 640px; margin: 0 auto; padding: 20px 16px 80px; }
+  .loading { max-width: 640px; margin: 0 auto; padding: 80px 24px; color: var(--muted); font-weight: 600; }
+
+  /* header */
+  .topbar { padding: 8px 0 20px; }
+  .brand { display: flex; align-items: center; gap: 12px; }
+  .mark {
+    background: var(--navy); color: #fff; font-weight: 800; letter-spacing: 0.5px;
+    width: 44px; height: 44px; border-radius: 12px; display: flex; align-items: center; justify-content: center;
+    font-size: 16px; flex: 0 0 auto;
+  }
+  .brandtext { display: flex; flex-direction: column; line-height: 1.2; }
+  .brandname { font-size: 13px; font-weight: 600; color: var(--muted); }
+  .brandsub { font-size: 21px; font-weight: 800; color: var(--navy); }
+
+  .lede { color: var(--muted); font-size: 15px; margin: 4px 0 20px; }
+
+  /* banners */
+  .banner { border-radius: 12px; padding: 12px 14px; font-size: 14px; font-weight: 600; margin-bottom: 16px; }
+  .banner-ok { background: rgba(17,39,67,0.06); color: var(--navy); }
+  .banner-warn { background: #fff; border-left: 4px solid var(--amber); color: var(--navy); }
+  .banner-error { background: var(--navy); color: #fff; display: flex; align-items: center; justify-content: space-between; gap: 12px; }
+
+  /* cards */
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 16px; padding: 16px; margin-bottom: 12px; }
+  .addcard { margin-bottom: 28px; }
+  .addlabel { display: block; font-weight: 700; font-size: 15px; margin-bottom: 8px; color: var(--navy); }
+  .noteinput, .textinput, .noteinput:focus, .textinput:focus { font-family: inherit; }
+  .noteinput {
+    width: 100%; border: 1px solid var(--line); border-radius: 12px; padding: 12px;
+    font-size: 16px; resize: vertical; color: var(--ink); background: #fff;
+  }
+  .noteinput:focus, .textinput:focus { outline: 2px solid var(--amber); outline-offset: 1px; border-color: transparent; }
+
+  /* buttons */
+  .btn { font-family: inherit; font-weight: 700; font-size: 15px; border-radius: 12px; padding: 12px 18px; border: 0; cursor: pointer; }
+  .btn-primary { background: var(--navy); color: #fff; margin-top: 12px; }
+  .btn-primary:disabled { opacity: 0.45; cursor: default; }
+  .btn-outline { background: #fff; color: var(--navy); border: 1.5px solid var(--navy); }
+  .btn-quiet { background: transparent; color: var(--muted); }
+  .btn-small { background: rgba(255,255,255,0.18); color: #fff; padding: 6px 12px; font-size: 13px; }
+  .row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; margin-top: 12px; }
+
+  /* review and edit fields */
+  .review { margin-top: 14px; border-top: 1px solid var(--line); padding-top: 14px; }
+  .reviewhint { color: var(--muted); font-size: 14px; margin: 0 0 10px; }
+  .field { margin-bottom: 12px; }
+  .fieldlabel { display: block; font-size: 13px; font-weight: 600; color: var(--muted); margin-bottom: 5px; }
+  .textinput { width: 100%; border: 1px solid var(--line); border-radius: 10px; padding: 11px 12px; font-size: 16px; color: var(--ink); background: #fff; }
+  .seg { display: flex; gap: 6px; flex-wrap: wrap; }
+  .segbtn { font-family: inherit; font-size: 13px; font-weight: 600; padding: 9px 12px; border-radius: 999px; border: 1.5px solid var(--line); background: #fff; color: var(--muted); cursor: pointer; }
+  .segbtn-on { border-color: var(--navy); background: var(--navy); color: #fff; }
+
+  .filepicker { display: flex; flex-direction: column; gap: 6px; }
+  .filepicker input[type=file] { font-family: inherit; font-size: 14px; }
+  .filepicker-name { font-size: 13px; color: var(--muted); font-weight: 600; }
+
+  /* sections */
+  .section { margin-bottom: 26px; }
+  .sectionhead { display: flex; align-items: baseline; gap: 10px; }
+  .sectiontitle { font-size: 18px; font-weight: 800; color: var(--navy); margin: 0; }
+  .sectioncount { font-size: 13px; font-weight: 700; color: var(--muted); }
+  .sectionblurb { color: var(--muted); font-size: 13px; margin: 2px 0 12px; }
+  .empty { color: var(--muted); font-size: 14px; font-style: italic; padding: 4px 2px 10px; }
+
+  /* item */
+  .item-urgent { border-left: 4px solid var(--amber); }
+  .item-done { background: #fbfaf6; }
+  .itemtop { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+  .itemtitle { font-size: 16px; font-weight: 700; color: var(--navy); margin: 0; }
+  .pill { font-size: 12px; font-weight: 700; color: var(--muted); background: var(--cream); border-radius: 999px; padding: 4px 10px; white-space: nowrap; flex: 0 0 auto; }
+  .pill-urgent { background: var(--amber); color: var(--navy); }
+  .itemneed { font-size: 14px; color: var(--ink); margin: 8px 0 4px; }
+  .itemmaterial { font-size: 13px; color: var(--muted); margin: 4px 0; }
+  .itemlink { font-size: 13px; color: var(--navy); font-weight: 600; word-break: break-all; display: inline-block; margin: 4px 0; }
+  .filechip { font-family: inherit; font-size: 13px; font-weight: 600; color: var(--navy); background: var(--cream); border: 0; border-radius: 8px; padding: 7px 11px; cursor: pointer; margin: 6px 0; }
+
+  .controls { margin-top: 12px; }
+  .reasonbox { display: flex; flex-direction: column; gap: 8px; }
+  .reasonbox .btn-primary { margin-top: 0; align-self: flex-start; }
+
+  .response { margin-top: 12px; background: rgba(17,39,67,0.05); border-radius: 12px; padding: 10px 12px; display: flex; flex-wrap: wrap; gap: 8px; align-items: baseline; }
+  .responselabel { font-weight: 800; color: var(--navy); font-size: 14px; }
+  .responsetext { color: var(--ink); font-size: 14px; }
+  .responsewhen { color: var(--muted); font-size: 12px; margin-left: auto; }
+
+  .itemfoot { display: flex; justify-content: space-between; align-items: center; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+  .byline { font-size: 12px; color: var(--muted); }
+  .actions { display: flex; gap: 12px; }
+  .link { background: none; border: 0; padding: 0; font-family: inherit; font-size: 13px; font-weight: 600; color: var(--navy); cursor: pointer; }
+  .link-del { color: #a23b2d; }
+
+  /* recently actioned */
+  .recent { margin-top: 10px; }
+  .recenthead { width: 100%; display: flex; justify-content: space-between; align-items: center; background: #fff; border: 1px solid var(--line); border-radius: 14px; padding: 14px 16px; font-family: inherit; font-weight: 800; font-size: 16px; color: var(--navy); cursor: pointer; margin-bottom: 12px; }
+
+  .foot { text-align: center; color: var(--muted); font-size: 12px; font-weight: 600; margin-top: 36px; }
+
+  @media (min-width: 560px) {
+    .brandsub { font-size: 24px; }
+  }
+</style>
+</head>
+<body>
+<div id="root"></div>
+
+<script src="https://unpkg.com/react@18/umd/react.production.min.js" crossorigin></script>
+<script src="https://unpkg.com/react-dom@18/umd/react-dom.production.min.js" crossorigin></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore-compat.js"></script>
+<script src="config.js"></script>
+<script src="app.js"></script>
+<script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", function () {
+      navigator.serviceWorker.register("sw.js").catch(function () {});
+    });
+  }
+</script>
+</body>
+</html>
